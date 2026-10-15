@@ -1,0 +1,54 @@
+# Copy to config/settings.yaml (gitignored) and adjust.
+
+instance_name: example-owner        # one instance per person
+
+database:
+  dsn_env: DATABASE_URL
+
+embedding:
+  provider: ollama
+  base_url: http://localhost:11434
+  model: nomic-embed-text
+  dimensions: 768
+  document_prefix: "search_document: "
+  query_prefix: "search_query: "
+  batch_size: 32
+
+chunking:
+  target_tokens: 400
+  overlap_tokens: 50
+
+chat:                               # answer model on the primary laptop (D-021)
+  base_url: http://<primary-laptop-tailscale-ip>:11434
+  model: qwen3.5:9b
+  num_ctx: 8192
+
+retrieval:
+  mode: hybrid_rerank                      # vector | hybrid | hybrid_rerank (set from eval results)
+  candidates: 20
+  top_k: 6
+  reranker_model: jinaai/jina-reranker-v1-turbo-en   # ONNX via fastembed, CPU (D-027)
+
+api:
+  bind: [127.0.0.1]                 # add the Tailscale IP of this host
+  port: 8765
+  tokens:                           # token values live in .env
+    - name: local-chat
+      token_env: API_TOKEN_LOCAL
+      allowed_sources: [notion, gdrive, files, gmail, outlook, sms_backup]
+      include_private: true         # D-017: only the local token sees sensitivity: private
+    - name: cloud-clients
+      token_env: API_TOKEN_CLOUD
+      allowed_sources: [notion, gdrive, files]
+
+freshness:
+  stale_after_hours:
+    notion: 12
+    gdrive: 12
+    gmail: 3
+    outlook: 3
+    sms_backup: 48
+
+alerts:
+  telegram_bot_token_env: TELEGRAM_BOT_TOKEN
+  telegram_chat_id_env: TELEGRAM_CHAT_ID

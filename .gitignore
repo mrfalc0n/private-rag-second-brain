@@ -1,0 +1,26 @@
+# private config, secrets and tokens
+.env
+config/settings.yaml
+config/sources.yaml
+tokens/
+*.token.json
+config/google_oauth_client.json
+client_secret*.json
+msal_cache.bin
+
+# private eval data and results
+evals/questions.jsonl
+evals/private/
+evals/results/
+
+# database dumps and local data
+backups/
+*.dump
+*.sql.gz
+data/
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/

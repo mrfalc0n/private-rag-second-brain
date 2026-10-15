@@ -1,0 +1,10 @@
+# Incremental Notion sync, triggered by second-brain-sync-notion.timer.
+# Install: cp deploy/second-brain-sync-notion.* ~/.config/systemd/user/ && systemctl --user enable --now second-brain-sync-notion.timer
+[Unit]
+Description=Second Brain: incremental Notion sync
+After=network-online.target postgresql.service ollama.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/private-rag-second-brain
+ExecStart=%h/.local/bin/uv run --frozen python -m second_brain sync notion

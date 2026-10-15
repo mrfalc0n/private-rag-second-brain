@@ -1,0 +1,10 @@
+[Unit]
+Description=Second Brain: Notion sync every 4 hours
+
+[Timer]
+OnCalendar=*-*-* 02/4:15:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,40 @@
+# Copy to config/sources.yaml (gitignored) and fill in.
+# Each source can be turned on independently. Nothing personal belongs in code.
+
+notion:
+  enabled: true
+  token_env: NOTION_TOKEN           # name of the variable in .env
+  full_reconcile_days: 7            # weekly full pass to catch deletions
+  private_parent_ids: []            # D-017: database, data source or page IDs tagged sensitivity: private (a page and its direct children)
+
+gdrive:
+  enabled: false
+  credentials_file: config/google_oauth_client.json
+  folder_ids: []                    # only these folders are indexed, never the whole drive
+  exclude_folder_ids: []            # subfolders to skip under the folders above
+  private_folder_ids: []            # D-017: files under these folders are tagged sensitivity: private
+  file_types: [gdoc, gsheet, pdf, docx, xlsx, csv, md, txt]
+
+files:
+  enabled: false
+  path: sample_data                 # Markdown and text files, relative to the repo root
+  private_subfolders: [private]     # D-017: files under these subfolders are tagged sensitivity: private
+
+gmail:
+  enabled: false
+  credentials_file: config/google_oauth_client.json
+  query: "-category:promotions -category:social -in:spam -in:trash"
+  start_date: "2025-10-01"          # first-run window; widen later
+
+outlook:
+  enabled: false
+  client_id_env: OUTLOOK_CLIENT_ID
+  authority: https://login.microsoftonline.com/consumers
+  folders: [inbox, sentitems]
+  start_date: "2025-10-01"
+
+sms_backup:
+  enabled: false
+  drive_folder_id: ""               # folder the phone backup app writes to
+  window_gap_hours: 2
+  window_max_tokens: 300

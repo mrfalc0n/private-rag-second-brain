@@ -1,0 +1,16 @@
+# systemd user unit. Install: cp deploy/second-brain-api.service ~/.config/systemd/user/ && systemctl --user enable --now second-brain-api
+# Binds 0.0.0.0 inside WSL (NAT mode): reachable on localhost and the Tailscale address only, because the
+# Windows port proxy forwards SSH alone, so the LAN cannot reach 8765 (D-014).
+[Unit]
+Description=Second Brain retrieval API
+After=network-online.target postgresql.service ollama.service
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=%h/private-rag-second-brain
+ExecStart=%h/.local/bin/uv run --frozen uvicorn second_brain.api:app --host 0.0.0.0 --port 8765
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

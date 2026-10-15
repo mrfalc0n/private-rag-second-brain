@@ -1,0 +1,5 @@
+{"id": "q001", "source": "notion", "type": "exact", "question": "What port does the example service listen on?", "gold_doc": "notion:<page-id>", "reference_answer": "8765", "answerable": true}
+{"id": "q002", "source": "gdrive", "type": "fuzzy", "question": "What did I decide about the example vendor contract?", "gold_doc": "gdrive:<file-id>", "reference_answer": "Renew for one year at the same rate.", "answerable": true}
+{"id": "q003", "source": "gmail", "type": "exact", "question": "What was the order number for the example parts purchase?", "gold_doc": "gmail:<message-id>", "reference_answer": "A-12345", "answerable": true}
+{"id": "q004", "source": "sms_backup", "type": "fuzzy", "question": "When did we agree to meet about the example project?", "gold_doc": "sms_backup:<window-id>", "reference_answer": "Tuesday at 10am.", "answerable": true}
+{"id": "q005", "source": "any", "type": "unanswerable", "question": "What is the example fact that is not in any of my data?", "gold_doc": null, "reference_answer": "I don't know.", "answerable": false}
